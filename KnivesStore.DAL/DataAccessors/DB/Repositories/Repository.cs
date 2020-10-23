@@ -8,9 +8,9 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity: class
     {
         private bool _isDisposed;
-        private KnivesStoreContext _context;
+        private DbContext _context;
 
-        public Repository(KnivesStoreContext context)
+        public Repository(DbContext context)
         {
             _context = context;
             _context.Set<TEntity>().Load();
@@ -20,7 +20,6 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-            _isDisposed = true;
         }
 
         protected void Dispose(bool isDisposing)
@@ -36,7 +35,7 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _context.Set<TEntity>().Include(x => x).ToList();
+            return _context.Set<TEntity>().ToList();
         }
 
         public TEntity Get(Func<TEntity, bool> predicate)
@@ -51,12 +50,19 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
 
         public void Update(TEntity item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            _context.Entry(GetItem(item)).State = EntityState.Modified;
         }
 
         public void Delete(TEntity item)
         {
-            _context.Set<TEntity>().Remove(item);
+            _context.Set<TEntity>().Remove(GetItem(item));
+        }
+
+        private TEntity GetItem(TEntity item)
+        {
+            var table = _context.Set<TEntity>();
+            var itemIn = table.Single(x => x.Equals(item));
+            return itemIn;
         }
     }
 }

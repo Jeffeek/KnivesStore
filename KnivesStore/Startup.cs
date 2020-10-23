@@ -1,8 +1,12 @@
+using KnivesStore.DAL.DataAccessors.DB;
+using KnivesStore.PL.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 namespace KnivesStore.PL
 {
@@ -18,6 +22,12 @@ namespace KnivesStore.PL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("KnivesDB");
+            services.AddDbContext<DbContext, KnivesStoreContext>(options =>
+                options.UseMySql(connection));
+            services.AddAutoMapper(typeof(MappingStartup));
+            services.AddUnitOfWorkAndRepository();
+            services.AddBusinessLogicLayer();
             services.AddControllersWithViews();
         }
 
@@ -46,6 +56,9 @@ namespace KnivesStore.PL
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "Knives",
+                    pattern: "{controller=Knives}/{action=Items}/{id?}");
             });
         }
     }

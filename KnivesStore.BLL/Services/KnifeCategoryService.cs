@@ -22,16 +22,16 @@ namespace KnivesStore.BLL.Services
             _mapper = mapper;
         }
 
-        public void Add(KnifeCategoryDto category)
+        public void Add(KnifeCategoryDTO category)
         {
             if (category == null) throw new ValidationException("NULL: ", nameof(category));
             if (GetAll().Contains(category)) throw new ValidationException("Already exists: ", nameof(category));
-            var mappedCategory = _mapper.Map<KnifeCategoryDto, KnifeCategory>(category);
+            var mappedCategory = _mapper.Map<KnifeCategoryDTO, KnifeCategory>(category);
             _unitOfWork.KnifeCategoryRepository.Insert(mappedCategory);
             _unitOfWork.Save();
         }
 
-        public KnifeCategoryDto Get(int? id)
+        public KnifeCategoryDTO Get(int? id)
         {
             if (id == null || id.Value <= 0) throw new ValidationException("Не установлено id категории", "");
             var category = GetAll().FirstOrDefault(x => x.Id == id.Value);
@@ -43,16 +43,16 @@ namespace KnivesStore.BLL.Services
         {
             if (id == null || id.Value <= 0) throw new ValidationException("id <= 0 or NULL: ", nameof(id));
             var category = GetAll().SingleOrDefault(x => x.Id == id.Value);
-            var mappedCategory = _mapper.Map<KnifeCategoryDto, KnifeCategory>(category);
+            var mappedCategory = _mapper.Map<KnifeCategoryDTO, KnifeCategory>(category);
             if (category == null) throw new ValidationException("Not exists: ", nameof(id));
             _unitOfWork.KnifeCategoryRepository.Delete(mappedCategory);
             _unitOfWork.Save();
         }
 
-        public IEnumerable<KnifeCategoryDto> GetAll()
+        public IEnumerable<KnifeCategoryDTO> GetAll()
         {
             var categories = _unitOfWork.KnifeCategoryRepository.GetAll();
-            return _mapper.Map<IEnumerable<KnifeCategory>, IEnumerable<KnifeCategoryDto>>(categories);
+            return _mapper.Map<IEnumerable<KnifeCategory>, IEnumerable<KnifeCategoryDTO>>(categories);
         }
 
         public void Dispose()

@@ -1,12 +1,13 @@
 ﻿using System;
 using KnivesStore.DAL.DataAccessors.DB.Repositories;
 using KnivesStore.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
 {
     public class KnivesDbUnitOfWork : IUnitOfWork
     {
-        private readonly KnivesStoreContext _context;
+        private readonly DbContext _context;
         private bool _isDisposed;
 
         public IRepository<Knife> KnifeRepository { get; private set; }
@@ -15,9 +16,9 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
         public IRepository<KnifeCategory> KnifeCategoryRepository { get; private set; }
 
 
-        public KnivesDbUnitOfWork(string connectionString)
+        public KnivesDbUnitOfWork(DbContext context)
         {
-            _context = new KnivesStoreContext(connectionString);
+            _context = context;
             InitializeRepositories();
         }
 
