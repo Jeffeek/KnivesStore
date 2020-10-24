@@ -48,6 +48,15 @@ namespace KnivesStore.BLL.Services
             }
         }
 
+        public void Update(KnifeDTO knife)
+        {
+            if (knife == null) throw new ValidationException("NULL: ", nameof(knife));
+            if (GetAll().Contains(knife)) throw new ValidationException("Already exists: ", nameof(knife));
+            var createdKnife = _mapper.Map<KnifeDTO, Knife>(knife);
+            _unitOfWork.KnifeRepository.Update(createdKnife);
+            _unitOfWork.Save();
+        }
+
         public IEnumerable<KnifeDTO> GetAll()
         {
             var knives = _unitOfWork.KnifeRepository.GetAll();
@@ -58,8 +67,8 @@ namespace KnivesStore.BLL.Services
         {
             if (knifeDTO == null) throw new ValidationException("NULL: ", nameof(knifeDTO));
             if (GetAll().Contains(knifeDTO)) throw new ValidationException("Already exists: ", nameof(knifeDTO));
-            var createdSale = _mapper.Map<KnifeDTO, Knife>(knifeDTO);
-            _unitOfWork.KnifeRepository.Insert(createdSale);
+            var createdKnife = _mapper.Map<KnifeDTO, Knife>(knifeDTO);
+            _unitOfWork.KnifeRepository.Insert(createdKnife);
             _unitOfWork.Save();
         }
 

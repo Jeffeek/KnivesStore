@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KnivesStore.DAL.DataAccessors.DB.Repositories
 {
-    public interface IRepository<T> : IDisposable where T : class
+    public interface IRepository<T> : IDisposable where T : class, IEquatable<T>
     {
         IEnumerable<T> GetAll();
         T Get(Func<T, bool> predicate);

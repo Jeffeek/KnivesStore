@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KnivesStore.DAL.DataAccessors.DB.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity: class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity: class, IEquatable<TEntity>
     {
         private bool _isDisposed;
         private DbContext _context;
@@ -48,9 +48,12 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
             _context.Set<TEntity>().Add(item);
         }
 
+        //TODO: доделать, не обновляет
         public void Update(TEntity item)
         {
-            _context.Entry(GetItem(item)).State = EntityState.Modified;
+            var dbItem = GetItem(item);
+            dbItem = item;
+            _context.Entry(GetItem(dbItem)).State = EntityState.Modified;
         }
 
         public void Delete(TEntity item)

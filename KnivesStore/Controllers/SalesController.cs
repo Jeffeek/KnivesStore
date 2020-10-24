@@ -13,14 +13,12 @@ namespace KnivesStore.PL.Controllers
 {
     public class SalesController : Controller
     {
-        private readonly IKnifeService _knifeService;
         private readonly ISaleService _saleService;
         private readonly IMapper _mapper;
 
-        public SalesController(ISaleService supplyService, IKnifeService productService, IMapper mapper)
+        public SalesController(ISaleService saleService, IMapper mapper)
         {
-            _knifeService = productService;
-            _saleService = supplyService;
+            _saleService = saleService;
             _mapper = mapper;
         }
 
@@ -34,6 +32,21 @@ namespace KnivesStore.PL.Controllers
         {
             _saleService.Delete(id);
             return RedirectToAction("Items");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var sale = new SaleViewModel();
+            return View(sale);
+        }
+
+        [HttpPost]
+        public IActionResult Create(SaleViewModel sale)
+        {
+            var mappedSale = _mapper.Map<SaleViewModel, SaleDTO>(sale);
+            _saleService.Add(mappedSale);
+            return Ok();
         }
     }
 }

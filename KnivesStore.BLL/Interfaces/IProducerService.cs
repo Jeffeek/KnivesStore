@@ -8,6 +8,7 @@ namespace KnivesStore.BLL.Interfaces
         void Add(ProducerDTO producer);
         ProducerDTO Get(int? id);
         void Delete(int? id);
+        void Update(ProducerDTO category);
         IEnumerable<ProducerDTO> GetAll();
     }
 }

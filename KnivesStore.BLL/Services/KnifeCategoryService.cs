@@ -49,6 +49,15 @@ namespace KnivesStore.BLL.Services
             _unitOfWork.Save();
         }
 
+        public void Update(KnifeCategoryDTO category)
+        {
+            if (category == null) throw new ValidationException("NULL: ", nameof(category));
+            if (GetAll().Contains(category)) throw new ValidationException("NOT exists: ", nameof(category));
+            var mappedCategory = _mapper.Map<KnifeCategoryDTO, KnifeCategory>(category);
+            _unitOfWork.KnifeCategoryRepository.Update(mappedCategory);
+            _unitOfWork.Save();
+        }
+
         public IEnumerable<KnifeCategoryDTO> GetAll()
         {
             var categories = _unitOfWork.KnifeCategoryRepository.GetAll();

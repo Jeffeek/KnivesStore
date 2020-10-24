@@ -63,6 +63,15 @@ namespace KnivesStore.BLL.Services
             _unitOfWork.Save();
         }
 
+        public void Update(SaleDTO sale)
+        {
+            if (sale == null) throw new ValidationException("NULL: ", nameof(sale));
+            if (GetAll().Contains(sale)) throw new ValidationException("Already exists: ", nameof(sale));
+            var createdSale = _mapper.Map<SaleDTO, Sale>(sale);
+            _unitOfWork.SaleRepository.Update(createdSale);
+            _unitOfWork.Save();
+        }
+
         public void Delete(int id)
         {
             if (id <= 0) throw new ValidationException("id <= 0: ", nameof(id));
