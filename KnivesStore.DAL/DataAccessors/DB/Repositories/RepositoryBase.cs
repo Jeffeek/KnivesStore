@@ -13,7 +13,6 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
         protected RepositoryBase(DbContext context)
         {
             Context = context;
-            //Context.Set<TEntity>().Load();
         }
 
         public void Dispose()

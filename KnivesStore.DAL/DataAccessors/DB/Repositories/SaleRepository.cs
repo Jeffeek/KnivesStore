@@ -21,7 +21,6 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
             var sales = GetAll();
             var map = sales.Single(x => x.Id == item.Id);
             map.Date = item.Date;
-            map.Sum = item.Sum;
             map.KnifeId = item.KnifeId;
             Context.Entry(map).State = EntityState.Modified;
         }

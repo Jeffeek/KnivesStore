@@ -5,7 +5,6 @@ using KnivesStore.BLL.DTO;
 using KnivesStore.BLL.Interfaces;
 using KnivesStore.PL.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace KnivesStore.PL.Controllers
 {
@@ -24,11 +23,17 @@ namespace KnivesStore.PL.Controllers
             _mapper = mapper;
         }
 
+        #region Items
+
         public IActionResult Items()
         {
             var supplies = _mapper.Map<IEnumerable<KnifeDTO>, IEnumerable<KnifeViewModel>>(_knifeService.GetAll());
             return View(supplies);
         }
+
+        #endregion
+
+        #region Delete
 
         public IActionResult Delete(int? id)
         {
@@ -36,38 +41,54 @@ namespace KnivesStore.PL.Controllers
             return RedirectToAction("Items");
         }
 
+        #endregion
+
+        #region Details
+
         public IActionResult Details(int? id)
         {
             var item = _mapper.Map<KnifeDTO, KnifeViewModel>(_knifeService.Get(id));
             return View(item);
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            int newId = _knifeService.GetAll().Max(x => x.Id) + 1;
-            var knife = new KnifeViewModel()
-            {
-                Id = newId,
-                MaxCategoryId = _knifeCategoryService.GetAll().Max(x => x.Id),
-                MaxProducerId = _producerCategoryService.GetAll().Max(x => x.Id)
-            };
-            return View(knife);
-        }
+        #endregion
 
-        [HttpPost]
-        public IActionResult Create(KnifeViewModel knife)
-        {
-            var mappedKnife = _mapper.Map<KnifeViewModel, KnifeDTO>(knife);
-            _knifeService.Add(mappedKnife);
-            return RedirectToAction("Items");
-        }
+        #region Create
+
+            [HttpGet]
+            public IActionResult Create()
+            {
+                int newId = 1;
+                var items = _knifeService.GetAll();
+                if (items.Any()) newId = items.Max(x => x.Id) + 1;
+                var knife = new KnifeViewModel()
+                {
+                    Id = newId,
+                    MaxCategoryId = _knifeCategoryService.GetAll().Max(x => x.Id),
+                    MaxProducerId = _producerCategoryService.GetAll().Max(x => x.Id),
+                };
+                return View(knife);
+            }
+
+            [HttpPost]
+            public IActionResult Create(KnifeViewModel knife)
+            {
+                var mappedKnife = _mapper.Map<KnifeViewModel, KnifeDTO>(knife);
+                _knifeService.Add(mappedKnife);
+                return RedirectToAction("Items");
+            }
+
+            #endregion
+
+        #region Edit
 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            var item = _knifeService.GetAll().Single(x => x.Id == id);
+            var item = _knifeService.Get(id);
             var mappedItem = _mapper.Map<KnifeDTO, KnifeViewModel>(item);
+            mappedItem.MaxCategoryId = _knifeCategoryService.GetAll().Max(x => x.Id);
+            mappedItem.MaxProducerId = _producerCategoryService.GetAll().Max(x => x.Id);
             return View(mappedItem);
         }
 
@@ -78,5 +99,7 @@ namespace KnivesStore.PL.Controllers
             _knifeService.Update(item);
             return RedirectToAction("Items");
         }
+
+        #endregion
     }
 }

@@ -13,19 +13,17 @@ namespace KnivesStore.DAL.Models
         public int KnifeId { get; set; }
         [Column("Date")]
         public DateTime Date { get; set; }
-        [Column("Sum")]
-        public int Sum { get; set; }
         public Knife Knife { get; set; }
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(KnifeId)}: {KnifeId}, {nameof(Date)}: {Date.ToLongDateString()}, {nameof(Sum)}: {Sum}";
+            return $"{nameof(Id)}: {Id}, {nameof(KnifeId)}: {KnifeId}, {nameof(Date)}: {Date.ToLongDateString()}";
         }
         public bool Equals(Sale other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return KnifeId == other.KnifeId && Date.Equals(other.Date) && Sum == other.Sum;
+            return KnifeId == other.KnifeId && Date.Equals(other.Date);
         }
 
         public override bool Equals(object obj)

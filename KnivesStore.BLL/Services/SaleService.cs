@@ -66,7 +66,7 @@ namespace KnivesStore.BLL.Services
         public void Update(SaleDTO sale)
         {
             if (sale == null) throw new ValidationException("NULL: ", nameof(sale));
-            if (GetAll().Contains(sale)) throw new ValidationException("Already exists: ", nameof(sale));
+            if (!GetAll().Contains(sale)) throw new ValidationException("NOT exists: ", nameof(sale));
             var createdSale = _mapper.Map<SaleDTO, Sale>(sale);
             _unitOfWork.SaleRepository.Update(createdSale);
             _unitOfWork.Save();
@@ -76,8 +76,8 @@ namespace KnivesStore.BLL.Services
         {
             if (id <= 0) throw new ValidationException("id <= 0: ", nameof(id));
             var sale = GetAll().SingleOrDefault(x => x.Id == id);
-            var mappedSale = _mapper.Map<SaleDTO, Sale>(sale);
             if (sale == null) throw new ValidationException("Not exists: ", nameof(id));
+            var mappedSale = _mapper.Map<SaleDTO, Sale>(sale);
             _unitOfWork.SaleRepository.Delete(mappedSale);
             _unitOfWork.Save();
         }
