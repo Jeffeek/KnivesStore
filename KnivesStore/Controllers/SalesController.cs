@@ -14,11 +14,13 @@ namespace KnivesStore.PL.Controllers
     public class SalesController : Controller
     {
         private readonly ISaleService _saleService;
+        private readonly IKnifeService _knifeService;
         private readonly IMapper _mapper;
 
-        public SalesController(ISaleService saleService, IMapper mapper)
+        public SalesController(IKnifeService knifeService,ISaleService saleService, IMapper mapper)
         {
             _saleService = saleService;
+            _knifeService = knifeService;
             _mapper = mapper;
         }
 
@@ -37,7 +39,10 @@ namespace KnivesStore.PL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var sale = new SaleViewModel();
+            var sale = new SaleViewModel()
+            {
+                MaxKnifeId = _knifeService.GetAll().Max(x => x.Id)
+            };
             return View(sale);
         }
 

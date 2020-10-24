@@ -9,14 +9,18 @@ using Microsoft.Extensions.Logging;
 
 namespace KnivesStore.PL.Controllers
 {
-    public class KnivesController : Controller
+    public class KnifeController : Controller
     {
         private readonly IKnifeService _knifeService;
+        private readonly IKnifeCategoryService _knifeCategoryService;
+        private readonly IProducerService _producerCategoryService;
         private readonly IMapper _mapper;
 
-        public KnivesController(IKnifeService productService, IMapper mapper)
+        public KnifeController(IKnifeCategoryService knifeCategoryService, IProducerService producerCategoryService, IKnifeService productService, IMapper mapper)
         {
             _knifeService = productService;
+            _knifeCategoryService = knifeCategoryService;
+            _producerCategoryService = producerCategoryService;
             _mapper = mapper;
         }
 
@@ -42,7 +46,12 @@ namespace KnivesStore.PL.Controllers
         public IActionResult Create()
         {
             int newId = _knifeService.GetAll().Max(x => x.Id) + 1;
-            var knife = new KnifeViewModel() {Id = newId};
+            var knife = new KnifeViewModel()
+            {
+                Id = newId,
+                MaxCategoryId = _knifeCategoryService.GetAll().Max(x => x.Id),
+                MaxProducerId = _producerCategoryService.GetAll().Max(x => x.Id)
+            };
             return View(knife);
         }
 
@@ -51,6 +60,22 @@ namespace KnivesStore.PL.Controllers
         {
             var mappedKnife = _mapper.Map<KnifeViewModel, KnifeDTO>(knife);
             _knifeService.Add(mappedKnife);
+            return RedirectToAction("Items");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            var item = _knifeService.GetAll().Single(x => x.Id == id);
+            var mappedItem = _mapper.Map<KnifeDTO, KnifeViewModel>(item);
+            return View(mappedItem);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(KnifeViewModel editedCategory)
+        {
+            var item = _mapper.Map<KnifeViewModel, KnifeDTO>(editedCategory);
+            _knifeService.Update(item);
             return RedirectToAction("Items");
         }
     }

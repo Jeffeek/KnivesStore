@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KnivesStore.PL.Controllers
 {
-    public class KnivesCategoriesController : Controller
+    public class KnifeCategoryController : Controller
     {
         private readonly IKnifeCategoryService _knifeCategoriesService;
         private readonly IMapper _mapper;
 
-        public KnivesCategoriesController(IKnifeCategoryService knivesCategoryService, IMapper mapper)
+        public KnifeCategoryController(IKnifeCategoryService knivesCategoryService, IMapper mapper)
         {
             _knifeCategoriesService = knivesCategoryService;
             _mapper = mapper;

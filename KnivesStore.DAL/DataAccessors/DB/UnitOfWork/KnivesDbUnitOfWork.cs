@@ -24,10 +24,10 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
 
         private void InitializeRepositories()
         {
-            ProducerRepository = new Repository<Producer>(_context);
-            KnifeRepository = new Repository<Knife>(_context);
-            SaleRepository = new Repository<Sale>(_context);
-            KnifeCategoryRepository = new Repository<KnifeCategory>(_context);
+            ProducerRepository = new ProducerRepository(_context);
+            KnifeRepository = new KnifeRepository(_context);
+            SaleRepository = new SaleRepository(_context);
+            KnifeCategoryRepository = new KnifeCategoryRepository(_context);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -39,7 +39,6 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
                     KnifeRepository.Dispose();
                     SaleRepository.Dispose();
                     KnifeCategoryRepository.Dispose();
-                    _context.Dispose();
                 }
             _isDisposed = true;
         }

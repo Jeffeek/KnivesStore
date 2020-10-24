@@ -9,5 +9,6 @@ namespace KnivesStore.PL.ViewModel
         public KnifeViewModel Knife { get; set; }
         public DateTime Date { get; set; }
         public int Sum { get; set; }
+        public int MaxKnifeId { get; set; }
     }
 }
