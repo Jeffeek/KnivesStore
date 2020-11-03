@@ -52,9 +52,9 @@ namespace KnivesStore.BLL.Services
         public void Update(ProducerDTO category)
         {
             if (category == null) throw new ValidationException("NULL: ", nameof(category));
-            if (GetAll().Contains(category)) throw new ValidationException("Already exists: ", nameof(category));
+            if (!GetAll().Contains(category)) throw new ValidationException("Not exists: ", nameof(category));
             var mappedCategory = _mapper.Map<ProducerDTO, Producer>(category);
-            _unitOfWork.ProducerRepository.Insert(mappedCategory);
+            _unitOfWork.ProducerRepository.Update(mappedCategory);
             _unitOfWork.Save();
         }
 

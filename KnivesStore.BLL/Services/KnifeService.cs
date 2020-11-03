@@ -51,7 +51,7 @@ namespace KnivesStore.BLL.Services
         public void Update(KnifeDTO knife)
         {
             if (knife == null) throw new ValidationException("NULL: ", nameof(knife));
-            if (GetAll().Contains(knife)) throw new ValidationException("Already exists: ", nameof(knife));
+            if (!GetAll().Contains(knife)) throw new ValidationException("Not exists: ", nameof(knife));
             var createdKnife = _mapper.Map<KnifeDTO, Knife>(knife);
             _unitOfWork.KnifeRepository.Update(createdKnife);
             _unitOfWork.Save();
@@ -63,11 +63,11 @@ namespace KnivesStore.BLL.Services
             return _mapper.Map<IEnumerable<Knife>, IEnumerable<KnifeDTO>>(knives);
         }
 
-        public void Add(KnifeDTO knifeDTO)
+        public void Add(KnifeDTO knife)
         {
-            if (knifeDTO == null) throw new ValidationException("NULL: ", nameof(knifeDTO));
-            if (GetAll().Contains(knifeDTO)) throw new ValidationException("Already exists: ", nameof(knifeDTO));
-            var createdKnife = _mapper.Map<KnifeDTO, Knife>(knifeDTO);
+            if (knife == null) throw new ValidationException("NULL: ", nameof(knife));
+            if (GetAll().Contains(knife)) throw new ValidationException("Already exists: ", nameof(knife));
+            var createdKnife = _mapper.Map<KnifeDTO, Knife>(knife);
             _unitOfWork.KnifeRepository.Insert(createdKnife);
             _unitOfWork.Save();
         }
@@ -76,8 +76,8 @@ namespace KnivesStore.BLL.Services
         {
             if (id == null || id.Value <= 0) throw new ValidationException("id <= 0 or NULL: ", nameof(id));
             var sale = GetAll().SingleOrDefault(x => x.Id == id.Value);
+            if (sale == null) throw new ValidationException("Not exists: ", nameof(sale));
             var mappedSale = _mapper.Map<KnifeDTO, Knife>(sale);
-            if (sale == null) throw new ValidationException("Not exists: ", nameof(id));
             _unitOfWork.KnifeRepository.Delete(mappedSale);
             _unitOfWork.Save();
         }

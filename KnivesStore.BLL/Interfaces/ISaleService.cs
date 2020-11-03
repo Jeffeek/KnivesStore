@@ -8,8 +8,8 @@ namespace KnivesStore.BLL.Interfaces
     {
         IEnumerable<SaleDTO> GetAll();
         SaleDTO Get(int? id);
-        void Add(SaleDTO orderDto);
+        void Add(SaleDTO sale);
         void Update(SaleDTO sale);
-        void Delete(int id);
+        void Delete(int? id);
     }
 }

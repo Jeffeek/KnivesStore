@@ -54,11 +54,11 @@ namespace KnivesStore.BLL.Services
             return _mapper.Map<IEnumerable<Sale>, IEnumerable<SaleDTO>>(sales);
         }
 
-        public void Add(SaleDTO orderDto)
+        public void Add(SaleDTO order)
         {
-            if (orderDto == null) throw new ValidationException("NULL: ", nameof(orderDto));
-            if (GetAll().Contains(orderDto)) throw new ValidationException("Already exists: ", nameof(orderDto));
-            var createdSale = _mapper.Map<SaleDTO, Sale>(orderDto);
+            if (order == null) throw new ValidationException("NULL: ", nameof(order));
+            if (GetAll().Contains(order)) throw new ValidationException("Already exists: ", nameof(order));
+            var createdSale = _mapper.Map<SaleDTO, Sale>(order);
             _unitOfWork.SaleRepository.Insert(createdSale);
             _unitOfWork.Save();
         }
@@ -72,7 +72,7 @@ namespace KnivesStore.BLL.Services
             _unitOfWork.Save();
         }
 
-        public void Delete(int id)
+        public void Delete(int? id)
         {
             if (id <= 0) throw new ValidationException("id <= 0: ", nameof(id));
             var sale = GetAll().SingleOrDefault(x => x.Id == id);

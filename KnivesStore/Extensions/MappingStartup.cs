@@ -25,6 +25,10 @@ namespace KnivesStore.PL.Extensions
             CreateMap<Sale, SaleDTO>();
             CreateMap<SaleDTO, SaleViewModel>();
             CreateMap<SaleViewModel, SaleDTO>();
+            CreateMap<UserDTO, User>();
+            CreateMap<User, UserDTO>();
+            CreateMap<UserDTO, UserViewModel>();
+            CreateMap<UserViewModel, UserDTO>();
         }
     }
 }

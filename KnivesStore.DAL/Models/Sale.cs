@@ -13,6 +13,9 @@ namespace KnivesStore.DAL.Models
         public int KnifeId { get; set; }
         [Column("Date")]
         public DateTime Date { get; set; }
+        [Column("UserId")]
+        public int UserId { get; set; }
+        public User User { get; set; }
         public Knife Knife { get; set; }
 
         public override string ToString()

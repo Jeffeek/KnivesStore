@@ -10,11 +10,11 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
         private readonly DbContext _context;
         private bool _isDisposed;
 
+        public IRepository<User> UserRepository { get; private set; }
         public IRepository<Knife> KnifeRepository { get; private set; }
         public IRepository<Sale> SaleRepository { get; private set; }
         public IRepository<Producer> ProducerRepository { get; private set; }
         public IRepository<KnifeCategory> KnifeCategoryRepository { get; private set; }
-
 
         public KnivesDbUnitOfWork(DbContext context)
         {
@@ -28,6 +28,7 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
             KnifeRepository = new KnifeRepository(_context);
             SaleRepository = new SaleRepository(_context);
             KnifeCategoryRepository = new KnifeCategoryRepository(_context);
+            UserRepository = new UserRepository(_context);
         }
 
         protected virtual void Dispose(bool disposing)

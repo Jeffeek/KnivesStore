@@ -1,10 +1,9 @@
-﻿using System;
-using KnivesStore.DAL.Models;
+﻿using KnivesStore.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnivesStore.DAL.DataAccessors.DB
 {
-    public class KnivesStoreContext : DbContext
+    public sealed class KnivesStoreContext : DbContext
     {
         public KnivesStoreContext(DbContextOptions options) : base(options)
         {
@@ -15,5 +14,6 @@ namespace KnivesStore.DAL.DataAccessors.DB
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<KnifeCategory> KnivesCategories { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

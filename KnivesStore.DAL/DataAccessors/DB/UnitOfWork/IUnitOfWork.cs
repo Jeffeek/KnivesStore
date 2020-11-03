@@ -10,6 +10,7 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
         IRepository<Sale> SaleRepository { get; }
         IRepository<Producer> ProducerRepository { get; }
         IRepository<KnifeCategory> KnifeCategoryRepository { get; }
+        IRepository<User> UserRepository { get; }
         void Save();
     }
 }

@@ -13,7 +13,10 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
 
         public override IEnumerable<Sale> GetAll()
         {
-            return Context.Set<Sale>().Include(x => x.Knife).AsQueryable();
+            return Context.Set<Sale>()
+                .Include(x => x.Knife)
+                .Include(x => x.User)
+                .AsQueryable();
         }
 
         public override void Update(Sale item)
