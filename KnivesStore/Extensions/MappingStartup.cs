@@ -13,6 +13,7 @@ namespace KnivesStore.PL.Extensions
             CreateMap<Knife, KnifeDTO>();
             CreateMap<KnifeDTO, KnifeViewModel>();
             CreateMap<KnifeViewModel, KnifeDTO>();
+            CreateMap<KnifeViewModel, KnifePanelViewModel>();
             CreateMap<ProducerDTO, Producer>();
             CreateMap<Producer, ProducerDTO>();
             CreateMap<ProducerDTO, ProducerViewModel>();

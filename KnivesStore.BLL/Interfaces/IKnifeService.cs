@@ -10,6 +10,7 @@ namespace KnivesStore.BLL.Interfaces
         KnifeDTO Get(int? id);
         void Delete(int? id);
         void Update(KnifeDTO knife);
+        List<string> GetImagesPaths(List<KnifeDTO> knives);
         IEnumerable<KnifeDTO> GetAll();
     }
 }

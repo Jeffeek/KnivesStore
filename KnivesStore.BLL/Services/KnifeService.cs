@@ -57,6 +57,17 @@ namespace KnivesStore.BLL.Services
             _unitOfWork.Save();
         }
 
+        public List<string> GetImagesPaths(List<KnifeDTO> knives)
+        {
+            var list = new List<string>();
+            foreach (var knife in knives)
+            {
+                list.Add($"./img/knives/{knife.Id}.png");
+            }
+
+            return list;
+        }
+
         public IEnumerable<KnifeDTO> GetAll()
         {
             var knives = _unitOfWork.KnifeRepository.GetAll();

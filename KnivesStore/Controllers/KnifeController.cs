@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using AutoMapper.Configuration.Conventions;
 using KnivesStore.BLL.DTO;
 using KnivesStore.BLL.Interfaces;
 using KnivesStore.PL.ViewModel;
@@ -22,6 +23,9 @@ namespace KnivesStore.PL.Controllers
             _producerCategoryService = producerCategoryService;
             _mapper = mapper;
         }
+
+
+        #region admin features
 
         #region Items
 
@@ -55,30 +59,30 @@ namespace KnivesStore.PL.Controllers
 
         #region Create
 
-            [HttpGet]
-            public IActionResult Create()
+        [HttpGet]
+        public IActionResult Create()
+        {
+            int newId = 1;
+            var items = _knifeService.GetAll();
+            if (items.Any()) newId = items.Max(x => x.Id) + 1;
+            var knife = new KnifeViewModel()
             {
-                int newId = 1;
-                var items = _knifeService.GetAll();
-                if (items.Any()) newId = items.Max(x => x.Id) + 1;
-                var knife = new KnifeViewModel()
-                {
-                    Id = newId,
-                    MaxCategoryId = _knifeCategoryService.GetAll().Max(x => x.Id),
-                    MaxProducerId = _producerCategoryService.GetAll().Max(x => x.Id),
-                };
-                return View(knife);
-            }
+                Id = newId,
+                MaxCategoryId = _knifeCategoryService.GetAll().Max(x => x.Id),
+                MaxProducerId = _producerCategoryService.GetAll().Max(x => x.Id),
+            };
+            return View(knife);
+        }
 
-            [HttpPost]
-            public IActionResult Create(KnifeViewModel knife)
-            {
-                var mappedKnife = _mapper.Map<KnifeViewModel, KnifeDTO>(knife);
-                _knifeService.Add(mappedKnife);
-                return RedirectToAction("Items");
-            }
+        [HttpPost]
+        public IActionResult Create(KnifeViewModel knife)
+        {
+            var mappedKnife = _mapper.Map<KnifeViewModel, KnifeDTO>(knife);
+            _knifeService.Add(mappedKnife);
+            return RedirectToAction("Items");
+        }
 
-            #endregion
+        #endregion
 
         #region Edit
 
@@ -98,6 +102,27 @@ namespace KnivesStore.PL.Controllers
             var item = _mapper.Map<KnifeViewModel, KnifeDTO>(editedCategory);
             _knifeService.Update(item);
             return RedirectToAction("Items");
+        }
+
+        #endregion
+
+        #endregion
+
+        #region user features
+
+        public IActionResult MoveToKnifePage(KnifePanelViewModel knife)
+        {
+            return Details(knife.Id);
+        }
+
+        public IActionResult KnifeStoreItems()
+        {
+            var items = _knifeService.GetAll();
+            var mapped = _mapper.Map<IEnumerable<KnifeDTO>, IEnumerable<KnifePanelViewModel>>(items);
+            var imgPaths = _knifeService.GetImagesPaths(items.ToList());
+            for (int i = 0; i < mapped.Count(); i++)
+                mapped.ElementAt(i).ImagePath = imgPaths[i];
+            return View(mapped);
         }
 
         #endregion
