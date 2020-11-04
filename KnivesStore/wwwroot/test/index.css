@@ -1,0 +1,35 @@
+.MainWrapper
+{ 
+    flex-wrap: wrap;
+    background: white;
+    display: flex;
+}
+
+.card-extra
+{
+    border-color: #fa4a34;
+    border-radius: 45px;
+    margin: 10px 10px 10px 10px;
+}
+
+.ItemButton
+{
+    position: relative;
+    width: 150px;
+    align-self: center;
+    border-radius: 30px;
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
+.dec-text
+{
+    font-weight: 350;
+    align-self: center;
+}
+
+.dec-price
+{
+    font-weight: 500;
+    align-self: center;
+}
