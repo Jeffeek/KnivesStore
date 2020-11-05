@@ -1,4 +1,4 @@
-.MainWrapper
+.main-wrapper
 { 
     flex-wrap: wrap;
     background: white;
@@ -22,14 +22,12 @@
     margin-bottom: 10px;
 }
 
-.dec-text
+.align-self-center:only-child(h5,h4)
 {
-    font-weight: 350;
     align-self: center;
 }
 
-.dec-price
+.text-align-center
 {
-    font-weight: 500;
-    align-self: center;
+    justify-content: center;
 }
