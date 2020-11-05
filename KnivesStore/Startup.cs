@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace KnivesStore.PL
 {
@@ -25,6 +26,13 @@ namespace KnivesStore.PL
             string connection = Configuration.GetConnectionString("KnivesDB");
             services.AddDbContext<DbContext, KnivesStoreContext>(options =>
                 options.UseMySql(connection));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Login");
+                });
+            
             services.AddAutoMapper(typeof(MappingStartup));
             services.AddUnitOfWorkAndRepository();
             services.AddBusinessLogicLayer();
@@ -49,16 +57,14 @@ namespace KnivesStore.PL
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute(
-                    name: "Knives",
-                    pattern: "{controller=Knives}/{action=Items}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}");
             });
         }
     }

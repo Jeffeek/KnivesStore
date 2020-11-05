@@ -18,8 +18,8 @@ namespace KnivesStore.DAL.Models
         public int Id { get; set; }
         [Column("Email")]
         public string Email { get; set; }
-        [Column("Name")]
-        public string Name { get; set; }
+        [Column("Login")]
+        public string Login { get; set; }
         [Column("Password")]
         public string Password { get; set; }
         [Column("Role")]
@@ -27,14 +27,14 @@ namespace KnivesStore.DAL.Models
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(Email)}: {Email}, {nameof(Name)}: {Name}, {nameof(Password)}: {Password}, {nameof(Role)}: {Role}";
+            return $"{nameof(Id)}: {Id}, {nameof(Email)}: {Email}, {nameof(Login)}: {Login}, {nameof(Password)}: {Password}, {nameof(Role)}: {Role}";
         }
 
         public bool Equals(User other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(Email, other.Email) && string.Equals(Name, other.Name) && string.Equals(Password, other.Password);
+            return string.Equals(Login, other.Login);
         }
 
         public override bool Equals(object obj)
