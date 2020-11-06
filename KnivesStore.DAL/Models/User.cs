@@ -27,7 +27,11 @@ namespace KnivesStore.DAL.Models
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(Email)}: {Email}, {nameof(Login)}: {Login}, {nameof(Password)}: {Password}, {nameof(Role)}: {Role}";
+            return $"{nameof(Id)}: {Id}," +
+                   $" {nameof(Email)}: {Email}," +
+                   $" {nameof(Login)}: {Login}," +
+                   $" {nameof(Password)}: {Password}," +
+                   $" {nameof(Role)}: {Role}";
         }
 
         public bool Equals(User other)

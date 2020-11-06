@@ -1,5 +1,8 @@
-﻿namespace KnivesStore.BLL.DTO
+﻿using System;
+
+namespace KnivesStore.BLL.DTO
 {
+    [Serializable]
     public class ProducerDTO
     {
         public int Id { get; set; }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using AutoMapper;
 using KnivesStore.BLL.DTO;
 using KnivesStore.BLL.Interfaces;
@@ -9,7 +8,6 @@ using KnivesStore.PL.ViewModel.Binding_Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KnivesStore.PL.Controllers.AccountControllers
@@ -42,7 +40,7 @@ namespace KnivesStore.PL.Controllers.AccountControllers
                 if (user != null)
                 {
                     Authenticate(user); // аутентификация
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Products", "Store");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }

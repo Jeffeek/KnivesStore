@@ -18,26 +18,16 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
                         <li class="nav-item dropdown align-self-lg-end">
                             <div class="show">
-                                <a class="nav-link text-dark btn btn-light dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sign In</a>
+                                <a class="nav-link text-dark btn btn-light dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" asp-area="" asp-controller="Registration" asp-action="SignUp">Sign Up</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="LogIn">Sign In</a>
                                 </div>
-                                <div id="admin">
-                                    <a class="btn btn-outline-info" asp-area="" asp-controller="Login" asp-action="RolePage">ADMIN</a>
-                                </div>
                             </div>
                         </li>
                     </ul>
-                </div>
-                
-                <div id="basket">
-                    <button class="btn btn-outline-info" asp-controller="Basket" asp-action="Index"><img src="/img/shopping_cart_100px.png" height="20"></button>
                 </div>
             </div>
         </nav>

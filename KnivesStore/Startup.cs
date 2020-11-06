@@ -65,6 +65,9 @@ namespace KnivesStore.PL
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}");
+                endpoints.MapControllerRoute(
+                    name: "basket-update",
+                    pattern: "{Basket}/{UpdateBasket}/{id?}");
             });
         }
     }

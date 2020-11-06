@@ -1,0 +1,28 @@
+﻿@model IEnumerable<KnivesStore.PL.ViewModel.Areas.DefaultUser.KnifeDefaultViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
+}
+
+<h1>Products</h1>
+
+<div class="main-wrapper">
+    @foreach (var knife in Model)
+    {
+    <div class="card card-extra" style="width: 18rem;">
+        <div class="card-body">
+            @{
+                string imgSrc = $"/img/knives/id{knife.Id}.png";
+                <img src=@imgSrc class="card-img-top h-75 w-100">
+            }
+            <div>
+                <h5 class="card-header">@knife.Name</h5>
+                <h4>$@knife.Price</h4>
+            </div>
+        </div>
+        @Html.ActionLink("Buy","UpdateBasket","Basket", htmlAttributes: new { @class = "btn btn-success item-button" }, routeValues: new {knife.Id})
+        <button class="btn btn-success item-button" asp-controller="Basket" asp-action="UpdateBasket" asp-route-id="@knife.Id">BUY</button>
+    </div>
+    }
+</div>

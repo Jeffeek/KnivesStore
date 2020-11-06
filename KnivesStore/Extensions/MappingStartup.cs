@@ -2,6 +2,7 @@
 using KnivesStore.BLL.DTO;
 using KnivesStore.DAL.Models;
 using KnivesStore.PL.ViewModel;
+using KnivesStore.PL.ViewModel.Areas.DefaultUser;
 using KnivesStore.PL.ViewModel.Binding_Models;
 
 namespace KnivesStore.PL.Extensions
@@ -18,6 +19,7 @@ namespace KnivesStore.PL.Extensions
 
             CreateMap<KnifeCategoryDTO, KnifeCategory>();
             CreateMap<KnifeCategory, KnifeCategoryDTO>();
+            CreateMap<KnifeDTO, KnifeDefaultViewModel>();
 
             CreateMap<SaleDTO, Sale>();
             CreateMap<Sale, SaleDTO>();

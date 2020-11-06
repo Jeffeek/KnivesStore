@@ -1,0 +1,55 @@
+.main-wrapper
+{ 
+    flex-wrap: wrap;
+    background: white;
+    display: flex;
+}
+
+.card-extra
+{
+    text-align: center!important;
+    align-items: center!important;
+    border-color: green;
+    border-radius: 45px;
+    margin: 10px;
+}
+
+.card-extra-disabled
+{
+    text-align: center!important;
+    align-items: center!important;
+    border-color: red;
+    border-radius: 45px;
+    margin: 10px;
+}
+
+.item-button
+{
+    position: relative;
+    width: 150px;
+    border-radius: 30px;
+    font-size: larger;
+    margin-bottom: 10px;
+    background: #34eb77;
+}
+
+.item-button-disabled
+{
+    position: relative;
+    width: 150px;
+    border-radius: 30px;
+    font-size: larger;
+    margin-bottom: 10px;
+    background: red;
+    border-color: #751c1c;
+}
+
+.item-button-disabled:hover
+{
+    background: gray;
+}
+
+.item-button:hover
+{
+    background: #154f2b;
+}

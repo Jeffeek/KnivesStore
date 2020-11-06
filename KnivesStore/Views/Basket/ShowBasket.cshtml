@@ -1,0 +1,16 @@
+﻿@model KnivesStore.BLL.DTO.KnifeDTO
+@{
+    ViewData["Title"] = "ShowBasket";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
+}
+
+<h1>ShowBasket</h1>
+
+<div>
+    <h4>KnifeDTO</h4>
+    <hr />
+    <h1>@Model.Name</h1>
+</div>
+<div>
+    <a asp-action="Products" asp-controller="Store">Back</a>
+</div>
