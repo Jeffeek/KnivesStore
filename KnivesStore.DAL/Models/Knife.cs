@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,6 +20,7 @@ namespace KnivesStore.DAL.Models
         public int CategoryId { get; set; }
         public KnifeCategory Category { get; set; }
         public Producer Producer { get; set; }
+        public ICollection<Sell> Sells { get; set; }
 
         public override string ToString()
         {

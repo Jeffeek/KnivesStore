@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,6 +25,7 @@ namespace KnivesStore.DAL.Models
         public string Password { get; set; }
         [Column("Role")]
         public UserRole Role { get; set; }
+        public ICollection<Check> Checks { get; set; }
 
         public override string ToString()
         {

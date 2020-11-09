@@ -10,19 +10,19 @@ using KnivesStore.DAL.Models;
 
 namespace KnivesStore.BLL.Services
 {
-    public class SaleService : ISaleService
+    public class CheckService : ICheckService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private bool _isDisposed;
 
-        public SaleService(IUnitOfWork uow, IMapper mapper)
+        public CheckService(IUnitOfWork uow, IMapper mapper)
         {
             _unitOfWork = uow;
             _mapper = mapper;
         }
 
-        public SaleDTO Get(int? id)
+        public CheckDTO Get(int? id)
         {
             if (id == null || id.Value <= 0) throw new ValidationException("Не установлено id ножа", "");
             var sale = GetAll().FirstOrDefault(x => x.Id == id.Value);
@@ -48,27 +48,27 @@ namespace KnivesStore.BLL.Services
             }
         }
 
-        public IEnumerable<SaleDTO> GetAll()
+        public IEnumerable<CheckDTO> GetAll()
         {
-            var sales = _unitOfWork.SaleRepository.GetAll();
-            return _mapper.Map<IEnumerable<Sale>, IEnumerable<SaleDTO>>(sales);
+            var sales = _unitOfWork.CheckRepository.GetAll();
+            return _mapper.Map<IEnumerable<Check>, IEnumerable<CheckDTO>>(sales);
         }
 
-        public void Add(SaleDTO order)
+        public void Add(CheckDTO order)
         {
             if (order == null) throw new ValidationException("NULL: ", nameof(order));
             if (GetAll().Contains(order)) throw new ValidationException("Already exists: ", nameof(order));
-            var createdSale = _mapper.Map<SaleDTO, Sale>(order);
-            _unitOfWork.SaleRepository.Insert(createdSale);
+            var createdSale = _mapper.Map<CheckDTO, Check>(order);
+            _unitOfWork.CheckRepository.Insert(createdSale);
             _unitOfWork.Save();
         }
 
-        public void Update(SaleDTO sale)
+        public void Update(CheckDTO sale)
         {
             if (sale == null) throw new ValidationException("NULL: ", nameof(sale));
             if (!GetAll().Contains(sale)) throw new ValidationException("NOT exists: ", nameof(sale));
-            var createdSale = _mapper.Map<SaleDTO, Sale>(sale);
-            _unitOfWork.SaleRepository.Update(createdSale);
+            var createdSale = _mapper.Map<CheckDTO, Check>(sale);
+            _unitOfWork.CheckRepository.Update(createdSale);
             _unitOfWork.Save();
         }
 
@@ -77,8 +77,8 @@ namespace KnivesStore.BLL.Services
             if (id <= 0) throw new ValidationException("id <= 0: ", nameof(id));
             var sale = GetAll().SingleOrDefault(x => x.Id == id);
             if (sale == null) throw new ValidationException("Not exists: ", nameof(id));
-            var mappedSale = _mapper.Map<SaleDTO, Sale>(sale);
-            _unitOfWork.SaleRepository.Delete(mappedSale);
+            var mappedSale = _mapper.Map<CheckDTO, Check>(sale);
+            _unitOfWork.CheckRepository.Delete(mappedSale);
             _unitOfWork.Save();
         }
     }

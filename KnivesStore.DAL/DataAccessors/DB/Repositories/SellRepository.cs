@@ -5,26 +5,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KnivesStore.DAL.DataAccessors.DB.Repositories
 {
-    public class SaleRepository : RepositoryBase<Sale>
+    public class SellRepository : RepositoryBase<Sell>
     {
-        public SaleRepository(DbContext context) : base(context)
+        public SellRepository(DbContext context) : base(context)
         {
         }
 
-        public override IEnumerable<Sale> GetAll()
+        public override IEnumerable<Sell> GetAll()
         {
-            return Context.Set<Sale>()
+            return Context.Set<Sell>()
+                .Include(x => x.Check)
                 .Include(x => x.Knife)
-                .Include(x => x.User)
-                .AsQueryable();
+                .ToList();
         }
 
-        public override void Update(Sale item)
+        public override void Update(Sell item)
         {
             var sales = GetAll();
             var map = sales.Single(x => x.Id == item.Id);
-            map.Date = item.Date;
-            map.KnifeId = item.KnifeId;
             Context.Entry(map).State = EntityState.Modified;
         }
     }

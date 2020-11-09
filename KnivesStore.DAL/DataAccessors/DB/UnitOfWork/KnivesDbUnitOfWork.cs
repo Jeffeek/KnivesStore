@@ -12,7 +12,8 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
 
         public IRepository<User> UserRepository { get; private set; }
         public IRepository<Knife> KnifeRepository { get; private set; }
-        public IRepository<Sale> SaleRepository { get; private set; }
+        public IRepository<Check> CheckRepository { get; private set; }
+        public IRepository<Sell> SellRepository { get; private set; }
         public IRepository<Producer> ProducerRepository { get; private set; }
         public IRepository<KnifeCategory> KnifeCategoryRepository { get; private set; }
 
@@ -26,22 +27,26 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
         {
             ProducerRepository = new ProducerRepository(_context);
             KnifeRepository = new KnifeRepository(_context);
-            SaleRepository = new SaleRepository(_context);
+            CheckRepository = new CheckRepository(_context);
             KnifeCategoryRepository = new KnifeCategoryRepository(_context);
             UserRepository = new UserRepository(_context);
+            SellRepository = new SellRepository(_context);
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (!_isDisposed)
+            {
                 if (disposing)
                 {
                     ProducerRepository.Dispose();
                     KnifeRepository.Dispose();
-                    SaleRepository.Dispose();
+                    CheckRepository.Dispose();
+                    SellRepository.Dispose();
                     KnifeCategoryRepository.Dispose();
                 }
-            _isDisposed = true;
+                _isDisposed = true;
+            }
         }
 
         public void Dispose()

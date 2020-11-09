@@ -10,10 +10,11 @@ namespace KnivesStore.DAL.DataAccessors.DB
             Database.EnsureCreated();
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Knife> Knives { get; set; }
         public DbSet<Producer> Producers { get; set; }
-        public DbSet<Sale> Sales { get; set; }
         public DbSet<KnifeCategory> KnivesCategories { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Check> Checks { get; set; }
+        public DbSet<Sell> Sells { get; set; }
     }
 }

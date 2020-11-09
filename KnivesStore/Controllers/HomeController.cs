@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
-using System.Security.Claims;
 using KnivesStore.PL.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

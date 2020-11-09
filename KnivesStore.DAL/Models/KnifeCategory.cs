@@ -12,7 +12,7 @@ namespace KnivesStore.DAL.Models
         public int Id { get; set; }
         [Column("Category")]
         public string Category { get; set; }
-        public IEnumerable<Knife> Knives { get; set; }
+        public ICollection<Knife> Knives { get; set; }
 
         public bool Equals(KnifeCategory other)
         {

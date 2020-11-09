@@ -7,7 +7,8 @@ namespace KnivesStore.DAL.DataAccessors.DB.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Knife> KnifeRepository { get; }
-        IRepository<Sale> SaleRepository { get; }
+        IRepository<Check> CheckRepository { get; }
+        IRepository<Sell> SellRepository { get; }
         IRepository<Producer> ProducerRepository { get; }
         IRepository<KnifeCategory> KnifeCategoryRepository { get; }
         IRepository<User> UserRepository { get; }

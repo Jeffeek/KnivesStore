@@ -16,6 +16,7 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
             return Context.Set<Knife>()
                                         .Include(x => x.Producer)
                                         .Include(x => x.Category)
+                                        .Include(x => x.Sells)
                                         .AsQueryable();
         }
 

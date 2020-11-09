@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,6 +14,7 @@ namespace KnivesStore.DAL.Models
         public string Country { get; set; }
         [Column("Name")]
         public string Name { get; set; }
+        public ICollection<Knife> Knives { get; set; }
 
         public bool Equals(Producer other)
         {

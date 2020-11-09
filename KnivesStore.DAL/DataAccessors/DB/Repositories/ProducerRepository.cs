@@ -13,7 +13,9 @@ namespace KnivesStore.DAL.DataAccessors.DB.Repositories
 
         public override IEnumerable<Producer> GetAll()
         {
-            return Context.Set<Producer>().AsQueryable();
+            return Context.Set<Producer>()
+                .Include(x => x.Knives)
+                .ToList();
         }
 
         public override void Update(Producer item)
