@@ -8,8 +8,8 @@ namespace KnivesStore.BLL.Interfaces
     {
         IEnumerable<CheckDTO> GetAll();
         CheckDTO Get(int? id);
-        void Add(CheckDTO sale);
-        void Update(CheckDTO sale);
+        void Add(CheckDTO check);
+        void Update(CheckDTO check);
         void Delete(int? id);
     }
 }

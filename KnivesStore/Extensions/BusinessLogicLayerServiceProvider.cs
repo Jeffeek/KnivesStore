@@ -13,6 +13,7 @@ namespace KnivesStore.PL.Extensions
             services.AddScoped<IProducerService, ProducerService>();
             services.AddScoped<IKnifeCategoryService, KnifeCategoryService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBasketService, BasketService>();
         }
     }
 }

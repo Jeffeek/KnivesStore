@@ -25,7 +25,7 @@ namespace KnivesStore.PL
         {
             string connection = Configuration.GetConnectionString("KnivesDB");
             services.AddDbContext<DbContext, KnivesStoreContext>(options =>
-                options.UseMySql(connection, builder => builder.MigrationsAssembly("KnivesStore.PL")));
+                options.UseMySql(connection));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {

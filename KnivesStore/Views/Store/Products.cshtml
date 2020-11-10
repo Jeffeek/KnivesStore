@@ -21,8 +21,7 @@
                 <h4>$@knife.Price</h4>
             </div>
         </div>
-        @Html.ActionLink("Buy","UpdateBasket","Basket", htmlAttributes: new { @class = "btn btn-success item-button" }, routeValues: new {knife.Id})
-        <button class="btn btn-success item-button" asp-controller="Basket" asp-action="UpdateBasket" asp-route-id="@knife.Id">BUY</button>
+        @Html.ActionLink("Buy","AddKnife","Basket", htmlAttributes: new { @class = "btn btn-success item-button" }, routeValues: new {knife.Id})
     </div>
     }
 </div>

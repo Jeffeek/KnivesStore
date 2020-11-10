@@ -2,18 +2,14 @@
 
 namespace KnivesStore.BLL.Models
 {
-    public class Discount
+    public class FirstDayOfWeekDiscount : IDiscount
     {
-        public Discount(int val)
-        {
-            Value = val;
-        }
-        public int Value { get; }
+        public int Percentage { get; } = 20;
 
-        public int GetDiscountedPrice(int sum)
+        public double GetTotalPriceWithDiscount(int sum)
         {
             if (DateTime.Now.Day == 1)
-                return (int)(sum - sum * (Value / 100.0));
+                return (int)(sum - sum * (Percentage / 100.0));
             return sum;
         }
     }

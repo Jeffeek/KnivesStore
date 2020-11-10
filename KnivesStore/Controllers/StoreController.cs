@@ -19,7 +19,6 @@ namespace KnivesStore.PL.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "Default")]
         public IActionResult Products()
         {
             var products = _knifeService.GetAll();

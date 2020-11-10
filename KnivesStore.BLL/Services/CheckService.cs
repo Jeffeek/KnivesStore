@@ -24,10 +24,10 @@ namespace KnivesStore.BLL.Services
 
         public CheckDTO Get(int? id)
         {
-            if (id == null || id.Value <= 0) throw new ValidationException("Не установлено id ножа", "");
-            var sale = GetAll().FirstOrDefault(x => x.Id == id.Value);
-            if (sale == null) throw new ValidationException("Нож не найден", "");
-            return sale;
+            if (id == null || id.Value <= 0) throw new ValidationException("Не установлено id чека", "");
+            var check = GetAll().FirstOrDefault(x => x.Id == id.Value);
+            if (check == null) throw new ValidationException("Чек не найден", "");
+            return check;
         }
 
         public void Dispose()
@@ -50,34 +50,34 @@ namespace KnivesStore.BLL.Services
 
         public IEnumerable<CheckDTO> GetAll()
         {
-            var sales = _unitOfWork.CheckRepository.GetAll();
-            return _mapper.Map<IEnumerable<Check>, IEnumerable<CheckDTO>>(sales);
+            var checks = _unitOfWork.CheckRepository.GetAll();
+            return _mapper.Map<IEnumerable<Check>, IEnumerable<CheckDTO>>(checks);
         }
 
-        public void Add(CheckDTO order)
+        public void Add(CheckDTO check)
         {
-            if (order == null) throw new ValidationException("NULL: ", nameof(order));
-            if (GetAll().Contains(order)) throw new ValidationException("Already exists: ", nameof(order));
-            var createdSale = _mapper.Map<CheckDTO, Check>(order);
-            _unitOfWork.CheckRepository.Insert(createdSale);
+            if (check == null) throw new ValidationException("NULL: ", nameof(check));
+            if (GetAll().Contains(check)) throw new ValidationException("Already exists: ", nameof(check));
+            var createdCheck = _mapper.Map<CheckDTO, Check>(check);
+            _unitOfWork.CheckRepository.Insert(createdCheck);
             _unitOfWork.Save();
         }
 
-        public void Update(CheckDTO sale)
+        public void Update(CheckDTO check)
         {
-            if (sale == null) throw new ValidationException("NULL: ", nameof(sale));
-            if (!GetAll().Contains(sale)) throw new ValidationException("NOT exists: ", nameof(sale));
-            var createdSale = _mapper.Map<CheckDTO, Check>(sale);
-            _unitOfWork.CheckRepository.Update(createdSale);
+            if (check == null) throw new ValidationException("NULL: ", nameof(check));
+            if (!GetAll().Contains(check)) throw new ValidationException("NOT exists: ", nameof(check));
+            var createdCheck = _mapper.Map<CheckDTO, Check>(check);
+            _unitOfWork.CheckRepository.Update(createdCheck);
             _unitOfWork.Save();
         }
 
         public void Delete(int? id)
         {
             if (id <= 0) throw new ValidationException("id <= 0: ", nameof(id));
-            var sale = GetAll().SingleOrDefault(x => x.Id == id);
-            if (sale == null) throw new ValidationException("Not exists: ", nameof(id));
-            var mappedSale = _mapper.Map<CheckDTO, Check>(sale);
+            var check = GetAll().SingleOrDefault(x => x.Id == id);
+            if (check == null) throw new ValidationException("Not exists: ", nameof(id));
+            var mappedSale = _mapper.Map<CheckDTO, Check>(check);
             _unitOfWork.CheckRepository.Delete(mappedSale);
             _unitOfWork.Save();
         }
