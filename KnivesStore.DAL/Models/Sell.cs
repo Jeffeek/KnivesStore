@@ -1,15 +1,22 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KnivesStore.DAL.Models
 {
     public class Sell : IEquatable<Sell>
     {
         [Key]
+        [Column("Id")]
         public int Id { get; set; }
+        [Column("KnifeId")]
         public int KnifeId { get; set; }
-        public Knife Knife { get; set; }
+        [Column("CheckId")]
         public int CheckId { get; set; }
+        [Column("Quantity")]
+        public int Quantity { get; set; }
+
+        public Knife Knife { get; set; } 
         public Check Check { get; set; }
 
         public bool Equals(Sell other)

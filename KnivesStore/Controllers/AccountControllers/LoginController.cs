@@ -8,6 +8,7 @@ using KnivesStore.PL.ViewModel.Binding_Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KnivesStore.PL.Controllers.AccountControllers
@@ -15,12 +16,14 @@ namespace KnivesStore.PL.Controllers.AccountControllers
     public class LoginController : Controller
     {
         private IUserService _userService;
+        private ICartService _cartService;
         private IMapper _mapper;
 
-        public LoginController(IMapper mapper, IUserService userService)
+        public LoginController(IMapper mapper, IUserService userService, ICartService cartService)
         {
             _mapper = mapper;
             _userService = userService;
+            _cartService = cartService;
         }
 
         [HttpGet]
@@ -59,6 +62,7 @@ namespace KnivesStore.PL.Controllers.AccountControllers
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            HttpContext.Session.SetInt32("CartId", _cartService.CartId);
         }
 
         [Authorize(Roles = "Moderator, Admin")]

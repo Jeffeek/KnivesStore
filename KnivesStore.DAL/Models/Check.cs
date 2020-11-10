@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KnivesStore.DAL.Models
 {
+    public enum CheckStatus : byte { Paid, InBasket, Cancelled }
+
     public class Check : IEquatable<Check>
     {
         [Key]
@@ -13,7 +16,13 @@ namespace KnivesStore.DAL.Models
         public DateTime Date { get; set; }
         [Column("UserId")]
         public int UserId { get; set; }
+        [Column("Sum")]
+        public int Sum { get; set; }
+        [Column("Status")]
+        public CheckStatus Status { get; set; }
+
         public User User { get; set; }
+        public ICollection<Sell> Sells { get; set; }
 
         public bool Equals(Check other)
         {

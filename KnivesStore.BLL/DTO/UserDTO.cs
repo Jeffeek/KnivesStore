@@ -1,4 +1,5 @@
-﻿using KnivesStore.DAL.Models;
+﻿using System.Collections.Generic;
+using KnivesStore.DAL.Models;
 
 namespace KnivesStore.BLL.DTO
 {
@@ -9,5 +10,6 @@ namespace KnivesStore.BLL.DTO
         public string Login { get; set; }
         public string Password { get; set; }
         public UserRole Role { get; set; }
+        public ICollection<CheckDTO> Checks;
     }
 }

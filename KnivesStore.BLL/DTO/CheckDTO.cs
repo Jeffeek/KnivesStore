@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KnivesStore.BLL.DTO
 {
@@ -8,5 +9,7 @@ namespace KnivesStore.BLL.DTO
         public int UserId { get; set; }
         public UserDTO User { get; set; }
         public DateTime Date { get; set; }
+        public int Sum { get; set; }
+        public ICollection<SellDTO> Sells { get; set; }
     }
 }

@@ -32,7 +32,8 @@ namespace KnivesStore.PL
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login");
                     options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Login");
                 });
-            
+
+            services.AddSession();
             services.AddAutoMapper(typeof(MappingStartup));
             services.AddUnitOfWorkAndRepository();
             services.AddBusinessLogicLayer();
@@ -59,6 +60,8 @@ namespace KnivesStore.PL
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

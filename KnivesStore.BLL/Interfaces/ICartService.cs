@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using KnivesStore.BLL.DTO;
 using KnivesStore.BLL.Models;
-using KnivesStore.BLL.Services;
 
 namespace KnivesStore.BLL.Interfaces
 {
-    public interface IBasketService
+    public interface ICartService
     {
         event EventHandler BasketChanged;
-        Dictionary<KnifeDTO, int> KnivesList { get; }
-        void Add(int knifeId);
-        void Remove(int knifeId);
+        void Add(int knifeId, int userId);
+        void Remove(int knifeId); 
+        List<KeyValuePair<KnifeDTO, int>> GetAll();
+        int CartId { get; }
         void Clear();
         void UseDiscount(IDiscount discount);
         int Sum { get; }

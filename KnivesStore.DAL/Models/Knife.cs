@@ -18,6 +18,7 @@ namespace KnivesStore.DAL.Models
         public string Name { get; set; }
         [Column("CategoryId")]
         public int CategoryId { get; set; }
+
         public KnifeCategory Category { get; set; }
         public Producer Producer { get; set; }
         public ICollection<Sell> Sells { get; set; }
